@@ -50,7 +50,9 @@ void registrasi(){
     gets(x.username);
     printf("password : ");
     gets(x.password);
-
+    printf("Saldo awal : ");
+    scanf("%d",&x.saldo);
+    getchar();
     fwrite(&x, sizeof(x), 1, user);
     fclose(user);
 }

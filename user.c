@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "myHeader.h"
 struct data{
     char nama[50];
@@ -8,6 +9,7 @@ struct data{
     char password[50];
     int saldo;
     int tambah;
+    
 
 }x;
 
@@ -61,7 +63,8 @@ void pesan(){
             pemesanan();
             break;
         case 4:
-            saldo();
+            //dataUser();
+            uang();
             break;
         case 5:
             yourTicket();
@@ -72,20 +75,24 @@ void pesan(){
 
 }
 
-void saldo(){
+void uang(){
+    FILE * user;
+    user = fopen("user.dat", "r+");
+    int p;
     char username[50], password[50];
-
     printf("USERNAME : ");
     gets(username);
     printf("PASSWORD : ");
     gets(password);
-
-    FILE * user;
-    user = fopen("user.dat", "r+");
-
-    while(fread(&x, sizeof(x), 1, user)==1){
+    while(fread(&x, sizeof(x), 1, user)){
+        printf("Nama : %s \n", x.nama);
+        printf("NIK : %s \n", x.nik);
+        printf("username : %s \n", x.username);
+        printf("password : %s \n", x.password);
+        printf("Saldo : %d\n\n", x.saldo);
+        
         if(strcmp(username, x.username)==0){
-            int p;
+            
             printf("\t\t\t Saldo anda : %d \n", x.saldo);
             printf("\t\t\t 1.Isi Saldo \n");
             printf("\t\t\t Pilih (1) \n");
@@ -105,15 +112,15 @@ void saldo(){
     }
 
     fclose(user);
-    
 
+    /**/
+    
 }
 
 void isiSaldo(){
-    // TO DO edit file user untuk menambahkan saldo
 
     FILE  * user;
-    user = fopen("user.dat", "a+");
+    user = fopen("user.dat", "r+");
 
     char username[50], password[50];
 
@@ -121,17 +128,31 @@ void isiSaldo(){
     gets(username);
     printf("PASSWORD : ");
     gets(password);
-    while(fread(&x, sizeof(x), 1, user)==1){
+    while(fread(&x, sizeof(x), 1, user)){
         if(strcmp(x.username, username)==0 && strcmp(x.username, username)==0){
             printf("Tambah Saldo : ");
-            scanf("%d", &x.tambah);
-            x.saldo = x.saldo + x.tambah;
-
+            int tambah, saldo;
+            scanf("%d", &tambah);
+            saldo = x.saldo;
+            saldo = saldo + tambah;
+            fseek(user, -sizeof(x), SEEK_CUR);
+            x.saldo = saldo;
             fwrite(&x, sizeof(x), 1, user);
             fclose(user);
             printf("\t\t\t 1.kembali \n");
             printf("\t\t\t 2.isi lagi \n");
             printf("\t\t\t Pilih (1/2) \n");
+
+            int p;
+            switch(p){
+                case 1:
+                    break;
+                case 2:
+                    isiSaldo();
+                    break;
+                default:
+                    break;
+            }
 
         }
     }
@@ -147,11 +168,12 @@ void pemesanan(){
 
     printf("Masukkan Tujuan anda : ");
     gets(tujuan);
+    FILE * user;
     FILE * tiket;
     FILE * pesawat;
     FILE * kereta;
     FILE * bus;
-
+    user = fopen("user.dat", "r+");
     tiket = fopen("tiket.dat", "a+");
     pesawat = fopen("pesawat.dat", "r+");
     kereta = fopen("kereta.dat", "r+");
@@ -175,15 +197,48 @@ void pemesanan(){
                     gets(username);
                     printf("PASSWORD : ");
                     gets(password);
-                    strcpy(z.nama, y.nama);
-                    strcpy(z.tujuan,y.tujuan);
-                    strcpy(z.asal,y.asal);
-                    strcpy(z.berangkat,y.berangkat);
-                    strcpy(z.tiba,y.tiba);
-                    z.harga = y.harga;
-                    strcpy(z.jenis,y.jenis);
-                    strcpy(z.pemilik,username);
-                    fwrite(&z, sizeof(z),1, tiket);
+                    while(fread(&x, sizeof(x), 1, user)){
+                        /*strcpy(z.nama, y.nama);
+                        strcpy(z.tujuan,y.tujuan);                            
+                        strcpy(z.asal,y.asal);
+                        strcpy(z.berangkat,y.berangkat);
+                        strcpy(z.tiba,y.tiba);
+                        z.harga = y.harga;
+                        strcpy(z.jenis,y.jenis);
+                        strcpy(z.pemilik,username);
+                        fwrite(&z, sizeof(z),1, tiket);*/
+                        if(strcmp(x.username, username) == 0){
+                            if(x.saldo >= y.harga){
+                                
+                                strcpy(z.nama, y.nama);
+                                strcpy(z.tujuan,y.tujuan);                            
+                                strcpy(z.asal,y.asal);
+                                strcpy(z.berangkat,y.berangkat);
+                                strcpy(z.tiba,y.tiba);
+                                z.harga = y.harga;
+                                strcpy(z.jenis,y.jenis);
+                                strcpy(z.pemilik,username);
+                                fwrite(&z, sizeof(z),1, tiket);
+                                int saldo, kurang;
+                                saldo = x.saldo;
+                                kurang = y.harga;
+                                
+                                saldo = saldo - kurang;
+                                fseek(user, -sizeof(x), SEEK_CUR);
+                                x.saldo = saldo;
+                                fwrite(&x, sizeof(x), 1, user);
+                                
+                                
+                    
+                            }
+                            else{
+                                printf("saldo anda tidak cukup");
+                            }
+                            
+                        }
+                    }
+                        
+                   
                     break;
                 case 2:
                     break;
