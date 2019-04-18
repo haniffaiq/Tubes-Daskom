@@ -73,21 +73,39 @@ void pesan(){
 }
 
 void saldo(){
-    int p;
-    printf("\t\t\t Saldo anda : %d \n", x.saldo);
-    printf("\t\t\t 1.Isi Saldo \n");
-    printf("\t\t\t Pilih (1) \n");
-    scanf("%d", &p);
-    getchar();
+    char username[50], password[50];
 
-    switch(p){
-        case 1:
-            system("clear");
-            //isiSaldo();
-            break;
-        default:
-            break;
+    printf("USERNAME : ");
+    gets(username);
+    printf("PASSWORD : ");
+    gets(password);
+
+    FILE * user;
+    user = fopen("user.dat", "r+");
+
+    while(fread(&x, sizeof(x), 1, user)==1){
+        if(strcmp(username, x.username)==0){
+            int p;
+            printf("\t\t\t Saldo anda : %d \n", x.saldo);
+            printf("\t\t\t 1.Isi Saldo \n");
+            printf("\t\t\t Pilih (1) \n");
+            scanf("%d", &p);
+            getchar();
+
+            switch(p){
+                case 1:
+                    system("clear");
+                    isiSaldo();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
+
+    fclose(user);
+    
 
 }
 
@@ -104,7 +122,7 @@ void isiSaldo(){
     printf("PASSWORD : ");
     gets(password);
     while(fread(&x, sizeof(x), 1, user)==1){
-        if(strcmp(x.username, username)==0 && strcmp(x.password, password) == 0){
+        if(strcmp(x.username, username)==0 && strcmp(x.username, username)==0){
             printf("Tambah Saldo : ");
             scanf("%d", &x.tambah);
             x.saldo = x.saldo + x.tambah;
