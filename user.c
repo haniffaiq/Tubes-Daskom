@@ -270,15 +270,35 @@ void pemesanan(){
                     gets(username);
                     printf("PASSWORD : ");
                     gets(password);
-                    strcpy(z.nama, y.nama);
-                    strcpy(z.tujuan,y.tujuan);
-                    strcpy(z.asal,y.asal);
-                    strcpy(z.berangkat,y.berangkat);
-                    strcpy(z.tiba,y.tiba);
-                    z.harga = y.harga;
-                    strcpy(z.jenis,y.jenis);
-                    strcpy(z.pemilik,username);
-                    fwrite(&z, sizeof(z),1, tiket);
+                    if(strcmp(x.username, username) == 0){
+                            if(x.saldo >= y.harga){
+                                
+                                strcpy(z.nama, y.nama);
+                                strcpy(z.tujuan,y.tujuan);                            
+                                strcpy(z.asal,y.asal);
+                                strcpy(z.berangkat,y.berangkat);
+                                strcpy(z.tiba,y.tiba);
+                                z.harga = y.harga;
+                                strcpy(z.jenis,y.jenis);
+                                strcpy(z.pemilik,username);
+                                fwrite(&z, sizeof(z),1, tiket);
+                                int saldo, kurang;
+                                saldo = x.saldo;
+                                kurang = y.harga;
+                                
+                                saldo = saldo - kurang;
+                                fseek(user, -sizeof(x), SEEK_CUR);
+                                x.saldo = saldo;
+                                fwrite(&x, sizeof(x), 1, user);
+                                
+                                
+                    
+                            }
+                            else{
+                                printf("saldo anda tidak cukup");
+                            }
+                            
+                        }
                     break;
                 case 2:
                     break;
@@ -309,15 +329,35 @@ void pemesanan(){
                     gets(username);
                     printf("PASSWORD : ");
                     gets(password);
-                    strcpy(z.nama, y.nama);
-                    strcpy(z.tujuan,y.tujuan);
-                    strcpy(z.asal,y.asal);
-                    strcpy(z.berangkat,y.berangkat);
-                    strcpy(z.tiba,y.tiba);
-                    z.harga = y.harga;
-                    strcpy(z.jenis,y.jenis);
-                    strcpy(z.pemilik,username);
-                    fwrite(&z, sizeof(z),1, tiket);
+                    if(strcmp(x.username, username) == 0){
+                            if(x.saldo >= y.harga){
+                                
+                                strcpy(z.nama, y.nama);
+                                strcpy(z.tujuan,y.tujuan);                            
+                                strcpy(z.asal,y.asal);
+                                strcpy(z.berangkat,y.berangkat);
+                                strcpy(z.tiba,y.tiba);
+                                z.harga = y.harga;
+                                strcpy(z.jenis,y.jenis);
+                                strcpy(z.pemilik,username);
+                                fwrite(&z, sizeof(z),1, tiket);
+                                int saldo, kurang;
+                                saldo = x.saldo;
+                                kurang = y.harga;
+                                
+                                saldo = saldo - kurang;
+                                fseek(user, -sizeof(x), SEEK_CUR);
+                                x.saldo = saldo;
+                                fwrite(&x, sizeof(x), 1, user);
+                                
+                                
+                    
+                            }
+                            else{
+                                printf("saldo anda tidak cukup");
+                            }
+                            
+                        }
                     break;
                 case 2:
                     break;
