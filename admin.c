@@ -31,7 +31,8 @@ void menuAdmin(){
     printf("\t\t\t 2. Input Tiket Kereta \n");
     printf("\t\t\t 3. Input Tiket Pesawat \n");
     printf("\t\t\t 4. Input Tiket Bus \n");
-    printf("\t\t\t Pilih (1/2/3/4) \n");
+    printf("\t\t\t 5. Exit \n");
+    printf("\t\t\t Pilih (1/2/3/4/5) \n");
     scanf("%d", &p);
     getchar();
 
@@ -47,6 +48,9 @@ void menuAdmin(){
             break;
         case 4:
             tiketBus();
+            break;
+        case 5:
+            system("clear");
             break;
         default :
             break;
@@ -86,6 +90,8 @@ void tiketKereta(){
     getchar();
     fwrite(&y, sizeof(y), 1, tiket);
     fclose(tiket);
+
+    menuAdmin();
     
 }
 
@@ -129,6 +135,8 @@ void tiketPesawat(){
     getchar();
     fwrite(&y, sizeof(y), 1, tiket);
     fclose(tiket);
+
+    menuAdmin();
     
 }
 
@@ -171,6 +179,8 @@ void tiketBus(){
     getchar();
     fwrite(&y, sizeof(y), 1, tiket);
     fclose(tiket);
+
+    menuAdmin();
     
 }
 
