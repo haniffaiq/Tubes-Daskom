@@ -2,6 +2,7 @@
 #include <string.h>
 #include "myHeader.h"
 
+//fungsi untuk admin login
 void admin(){
     int i;
     
@@ -25,6 +26,7 @@ void admin(){
     }    
 }
 
+//fungsi untuk menu dari admin
 void menuAdmin(){
     int p;
     printf("\t\t\t 1. User \n");
@@ -67,6 +69,8 @@ struct data{
 
 }y;
 
+
+//fungsi input tiket
 //Kereta
 void tiketKereta(){
 

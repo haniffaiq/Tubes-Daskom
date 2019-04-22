@@ -2,6 +2,7 @@
 #include "myHeader.h"
 #include <stdlib.h>
 
+//menampilkan menu
 void menu(){
     int p;
     printf("\n\n \t\t\t S E L A M A T  D A T A N G \t\t\t \n\n");
@@ -37,6 +38,8 @@ struct data{
     char password[50];
     int saldo;
 }x;
+
+//fungsi untuk registrasi user
 void registrasi(){
 
     FILE * user;
@@ -57,6 +60,7 @@ void registrasi(){
     fclose(user);
 }
 
+//fungsi untuk menampilkan data data dari user di menu admin
 void dataUser(){
 
     FILE * user;
@@ -74,6 +78,7 @@ void dataUser(){
 
 }
 
+//fungsi untuk user login
 void login(){
     char username[50], password[50];
 

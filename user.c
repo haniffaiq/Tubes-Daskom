@@ -35,6 +35,8 @@ struct data3{
     int harga;
 
 }z;
+
+//fungsi untuk menu dari user ketika selesai login
 void pesan(){
     int p;
     printf("\t\t\t 1. Tiket Kereta \n");
@@ -75,6 +77,7 @@ void pesan(){
 
 }
 
+//menu saldo user
 void uang(){
     FILE * user;
     user = fopen("user.dat", "r+");
@@ -116,6 +119,8 @@ void uang(){
     /**/
     
 }
+
+//fungsi pengisian saldo
 
 void isiSaldo(){
 
@@ -159,6 +164,8 @@ void isiSaldo(){
         
 }
 
+
+//fungsi pemesanan tiket
 void pemesanan(){
     char tujuan[50];
     char username[50];
@@ -375,6 +382,8 @@ void pemesanan(){
 
 }
 
+
+//fungsi untuk melihat tiket yang di miliki user tertentu
 void yourTicket(){
     char username[50];
     char password[50];
